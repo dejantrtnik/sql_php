@@ -6,7 +6,7 @@ include 'update_db.php';
 <div class="form-dodaj" class="">
 	<div class="trid"> BESEDILO </div>
 	<?php ?>
-		<h2>Sprememba podatkov</h2>
+		<h2>Izbris podatkov</h2>
 			<form method="POST" action="update_db.php">
 				<div class="input-group">
 					<label>Izbriši vnos Id št.</label><br>
