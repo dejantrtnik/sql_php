@@ -2,46 +2,32 @@
 include 'db_conn.php';
 
 $id = "";
-$ime = "";
-$uporabnisko_ime = "";
-$geslo = "";
-//$slika = "";
-$stevilo = "";
-$timestamp = "";
-$timestamp_reaktivacije = "";
-$active = "";
+$stolpec1 = "";
+$stolpec2 = "";
+$stolpec3 = "";
+$stolpec4 = "";
 
 if (isset($_GET['edit']))
 {
     $id = $_GET['edit'];
     $update = true;
 
-    $result = mysqli_fetch_array(mysqli_query($conn, "SELECT * FROM table WHERE clanId =$id"));
+    $result = mysqli_fetch_array(mysqli_query($conn, "SELECT * FROM testno WHERE clanId =$id"));
     //print_r($result['clanId']);
-    $id = $result['clanId'];
-    $ime = $result['ime'];
-    $uporabnisko_ime = $result['uporabnisko_ime'];
-    $geslo = $result['geslo'];
-    //$slika = $result['slika'];
-    $stevilo = $result['stevilo'];
-    $status = $result['status'];
-    $timestamp = $result['datum_izbrisa'];
-    $timestamp_reaktivacije = $result['datum_reaktivacije'];
-    //$prijava = $result[''];
+    $id = $result['id'];
+    $stolpec1 = $result['tabela1'];
+    $stolpec2 = $result['tabela2'];
+    $stolpec3 = $result['tabela3'];
+    $stolpec4 = $result['tabela4'];
 }
 function getPosts ()
 {
     $posts = array();
-    $posts[0] = $_POST['clanId'];
-    $posts[1] = $_POST['ime'];
-    $posts[2] = $_POST['uporabnisko_ime'];
-    $posts[3] = sha1($_POST['geslo']);
-    //$posts[4] = $_POST['slika'];
-    $posts[5] = $_POST['stevilo'];
-    $posts[6] = $_POST['status'];
-    $posts[7] = $_POST['datum_izbrisa'];
-    $posts[8] = $_POST['datum_reaktivacije'];
-    //$posts[9] = $_POST[''];
+    $posts[0] = $_POST['id'];
+    $posts[1] = $_POST['tabela1'];
+    $posts[2] = $_POST['tabela2'];
+    $posts[3] = $_POST['tabela3'];
+    $posts[4] = $_POST['tabela4'];
     return $posts;
 }
 
@@ -49,7 +35,7 @@ function getPosts ()
 if(isset($_POST['search']))
 {
     $data = getPosts();
-    $search_Query = "SELECT * FROM table WHERE clanId = $data[0]";
+    $search_Query = "SELECT * FROM testno WHERE clanId = $data[0]";
 
     $search_Result = mysqli_query($conn, $search_Query);
 
@@ -82,7 +68,7 @@ if(isset($_POST['search']))
 if(isset($_POST['insert']))
 {
     $data = getPosts();
-    $insert_Query = "INSERT INTO `table`(`clanId`, `ime`, `uporabnisko_ime`, `geslo`, `slika`, `stevilo`) VALUES ('$data[0]', '$data[1]', '$data[2]', '$data[3]', '$data[4]', '$data[5]')";
+    $insert_Query = "INSERT INTO `testno`(`id`, `tabela1`, `tabela2`, `tabela3`, `tabela4`) VALUES (NULL, '$data[1]', '$data[2]', '$data[3]', '$data[4]')";
     try
     {
         $insert_Result = mysqli_query($conn, $insert_Query);
@@ -108,7 +94,7 @@ if(isset($_POST['insert']))
 if(isset($_POST['soft_delete']))
 {
     $data = getPosts();
-    $update_Query = "UPDATE table SET clanId = '$data[0]', ime = '$data[1]', uporabnisko_ime = '$data[2]', geslo = '$data[3]', datum_izbrisa = '$data[7]', status = '0', slika = '$data[4]', stevilo = 1 WHERE  clanId = '$data[0]'";
+    $update_Query = "UPDATE testno SET id = '$data[0]', tabela1 = '$data[1]', tabela2 = '$data[2]', tabela3 = '$data[3]', tabela4 = '$data[4]' WHERE  id = '$data[0]'";
     try
     {
         $update_Query = mysqli_query($conn, $update_Query);
@@ -135,7 +121,7 @@ if(isset($_POST['soft_delete']))
 if(isset($_POST['delete']))
 {
     $data = getPosts();
-    $delete_Query = "DELETE FROM `table` WHERE clanId = $data[0]";
+    $delete_Query = "DELETE FROM `testno` WHERE id = $data[0]";
     try
     {
         $delete_Result = mysqli_query($conn, $delete_Query);
@@ -161,7 +147,7 @@ if(isset($_POST['delete']))
 if(isset($_POST['update']))
 {
     $data = getPosts();
-    $update_Query = "UPDATE table SET clanId = '$data[0]', ime = '$data[1]', uporabnisko_ime = '$data[2]', geslo = '$data[3]', status = '$data[6]', datum_reaktivacije = '$data[8]', stevilo = 1 WHERE  clanId = '$data[0]'";
+    $update_Query = "UPDATE testno SET id = '$data[0]', tabela1 = '$data[1]', tabela2 = '$data[2]', tabela3 = '$data[3]', tabela4 = '$data[4]'  WHERE  id = '$data[0]'";
     try
     {
         $update_Result = mysqli_query($conn, $update_Query);
@@ -187,7 +173,7 @@ if(isset($_POST['update']))
 if(isset($_POST['update_active']))
 {
     $data = getPosts();
-    $update_Query = "UPDATE table SET active = 1 WHERE clanId = '$data[0]'";
+    $update_Query = "UPDATE testno SET active = 1 WHERE id = '$data[0]'";
     try
     {
         $update_Result = mysqli_query($conn, $update_Query);
@@ -195,13 +181,11 @@ if(isset($_POST['update_active']))
         {
             if(mysqli_affected_rows($conn)> 0)
             {
-                //echo "Vnos posodobljen";
-                header('Location:http://193.77.83.59/web2chat/ok.php');
+                echo "Vnos posodobljen";
             }
             else
             {
-                //echo "Napaka pri posodabljanju!!";
-                header('Location:http://193.77.83.59/web2chat/not_ok.php');
+                echo "Napaka pri posodabljanju!!";
             }
         }
     }

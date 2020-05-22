@@ -30,7 +30,7 @@ $array = mysqli_fetch_all($result);
 
 
 </table><br>
-<div style="text-align:center;" class="container_chat">
+<div style="text-align:center;" class="">
 <a href="edit.php?edit=<?= $array[$_GET['vec']]['0'] ?>"><i class="fa fa-edit">&nbsp;Uredi</i></a>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 <a href="delete.php?edit=<?= $array[$_GET['vec']]['0'] ?>"><i class="fa fa-trash">&nbsp;Zbriši</i></a>
