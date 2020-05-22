@@ -1,5 +1,4 @@
 <?php
-  require_once "header.php";
 include 'db.php';
 include 'update_db.php';
 ?>
