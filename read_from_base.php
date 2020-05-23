@@ -62,7 +62,7 @@ $array = mysqli_fetch_all($result);
     <th><?= $array['3']; ?></th>
     <th><?= $array['4']; ?></th>
     <td><a class="" href="index.php?vec=<?= $index; ?>">Več</a></td>
-    <td><a class="" href="uredi.php?edit=<?= $array['0']; ?>">Uredi</a></td>
+    <td><a class="" href="edit.php?edit=<?= $array['0']; ?>">Uredi</a></td>
     <td><a class="" href="delete.php?edit=<?= $array['0']; ?>">Briši</a></td>
   </tr>
   <?php endforeach; ?>
