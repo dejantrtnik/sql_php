@@ -69,3 +69,4 @@ $array = mysqli_fetch_all($result);
 </table>
 </div>
 <?php endif; ?>
+<a class="" href="insert.php?edit=<?= $array['0']; ?>">insert</a>
